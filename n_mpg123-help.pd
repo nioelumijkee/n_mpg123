@@ -1,4 +1,4 @@
-#N canvas 311 203 916 513 10;
+#N canvas 258 141 916 513 10;
 #X obj 651 471 dac~, f 11;
 #X msg 839 337 0 44100;
 #X msg 838 296 bang;
@@ -19,12 +19,12 @@
 -1 -1;
 #X obj 101 308 openpanel;
 #N canvas 0 50 450 250 (subpatch) 0;
-#X array Ch_l 100 float 2;
-#X coords 0 1 100 -1 700 100 1 0 0;
+#X array Ch_l 1 float 2;
+#X coords 0 1 1 -1 700 100 1 0 0;
 #X restore 83 23 graph;
 #N canvas 0 50 450 250 (subpatch) 0;
-#X array Ch_r 100 float 2;
-#X coords 0 1 100 -1 700 100 1 0 0;
+#X array Ch_r 1 float 2;
+#X coords 0 1 1 -1 700 100 1 0 0;
 #X restore 83 123 graph;
 #X msg 488 307 redraw;
 #X msg 379 307 decode;

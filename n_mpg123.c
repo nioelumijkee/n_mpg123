@@ -4,18 +4,18 @@
 #include "pd_open_array.c"
 
 #define A_ERROR -1
-#define OUTLETF(S, F)					    \
-  {							    \
-    t_atom a[1];					    \
-    SETFLOAT(a, (t_float)(F));				    \
+#define OUTLETF(S, F)                                   \
+  {                                                     \
+    t_atom a[1];                                        \
+    SETFLOAT(a, (t_float)(F));                          \
     outlet_anything(x->out, gensym((S)), 1, a);		    \
   }
 
-#define OUTLETS(S, A)					    \
-  {							    \
-    t_atom a[1];					    \
+#define OUTLETS(S, A)                           \
+  {                                             \
+    t_atom a[1];                                \
     SETSYMBOL(a, gensym((A)));				    \
-    outlet_anything(x->out, gensym((S)), 1, a);		    \
+    outlet_anything(x->out, gensym((S)), 1, a); \
   }
 
 static t_class *n_mpg123_class;
@@ -116,7 +116,8 @@ void n_mpg123_openfile(t_n_mpg123 *x, t_symbol *file)
   mpg123_format_none(x->mh);
   mpg123_format(x->mh, x->rate, x->channels, encoding);
   
-  // buffer could be almost any size here, mpg123_outblock() is just some recommendation.
+  // buffer could be almost any size here
+  // mpg123_outblock() is just some recommendation.
   // the size should be a multiple of the PCM frame size.
   x->buffer_size = mpg123_outblock(x->mh);
   x->buffer = malloc(x->buffer_size);
@@ -165,7 +166,7 @@ void n_mpg123_open_array(t_n_mpg123 *x, t_symbol *s0, t_symbol *s1)
     {
       x->l[0] = pd_open_array(s0, &x->w[0], &x->g[0]);
       if (x->l[0] < 1)
-	return;
+        return;
       garray_resize(x->g[0], (t_float)x->len_in_samples);
       x->l[0] = pd_open_array(s0, &x->w[0], &x->g[0]);
     }
@@ -173,13 +174,13 @@ void n_mpg123_open_array(t_n_mpg123 *x, t_symbol *s0, t_symbol *s1)
     {
       x->l[0] = pd_open_array(s0, &x->w[0], &x->g[0]);
       if (x->l[0] < 1)
-	return;
+        return;
       garray_resize(x->g[0], (t_float)x->len_in_samples);
       x->l[0] = pd_open_array(s0, &x->w[0], &x->g[0]);
       
       x->l[1] = pd_open_array(s1, &x->w[1], &x->g[1]);
       if (x->l[1] < 1)
-	return;
+        return;
       garray_resize(x->g[1], (t_float)x->len_in_samples);
       x->l[1] = pd_open_array(s1, &x->w[1], &x->g[1]);
     }
@@ -222,47 +223,47 @@ void n_mpg123_decode(t_n_mpg123 *x)
     // mono
     if (x->channels == 1)
       {
-	k = done >> 1; // 2 byte
-	for (i = 0; i < k; i++)
-	  {
-	    j = i << 1;
-	    
-	    ch = x->buffer[j + 1];
-	    buf_l = ch;
-	    buf_l = buf_l << 8;
-	    buf_l += x->buffer[j];
-	    
-	    x->w[0][count].w_float = buf_l / 32768.;
-	    count++;
-	    if (count >= x->l[0])
-	      count = x->l[0] - 1;
-	  }
+        k = done >> 1; // 2 byte
+        for (i = 0; i < k; i++)
+          {
+            j = i << 1;
+            
+            ch = x->buffer[j + 1];
+            buf_l = ch;
+            buf_l = buf_l << 8;
+            buf_l += x->buffer[j];
+            
+            x->w[0][count].w_float = buf_l / 32768.;
+            count++;
+            if (count >= x->l[0])
+              count = x->l[0] - 1;
+          }
       }
     
     // stereo
     else if (x->channels == 2)
       {
-	k = done >> 2; // 2 byte * 2
-	for (i = 0; i < k; i++)
-	  {
-	    j = i << 2;
-	    
-	    ch = x->buffer[j + 1];
-	    buf_l = ch;
-	    buf_l = buf_l << 8;
-	    buf_l += x->buffer[j];
-	    
-	    ch = x->buffer[j + 3];
-	    buf_r = ch;
-	    buf_r = buf_r << 8;
-	    buf_r += x->buffer[j + 2];
-	    
-	    x->w[0][count].w_float = buf_l / 32768.;
-	    x->w[1][count].w_float = buf_r / 32768.;
-	    count++;
-	    if (count >= x->l[0])
-	      count = x->l[0] - 1;
-	  }
+        k = done >> 2; // 2 byte * 2
+        for (i = 0; i < k; i++)
+          {
+            j = i << 2;
+            
+            ch = x->buffer[j + 1];
+            buf_l = ch;
+            buf_l = buf_l << 8;
+            buf_l += x->buffer[j];
+            
+            ch = x->buffer[j + 3];
+            buf_r = ch;
+            buf_r = buf_r << 8;
+            buf_r += x->buffer[j + 2];
+            
+            x->w[0][count].w_float = buf_l / 32768.;
+            x->w[1][count].w_float = buf_r / 32768.;
+            count++;
+            if (count >= x->l[0])
+              count = x->l[0] - 1;
+          }
       }
     fr++;
   }   while (done && err == MPG123_OK);
