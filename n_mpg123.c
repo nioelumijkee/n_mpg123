@@ -1,7 +1,7 @@
 #include <string.h>
 #include <mpg123.h>
 #include "m_pd.h"
-#include "pd_open_array.c"
+#include "include/pd_open_array.c"
 
 #define A_ERROR -1
 #define OUTLETF(S, F)                                   \
