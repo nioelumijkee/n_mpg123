@@ -1,4 +1,4 @@
-#N canvas 258 141 916 513 10;
+#N canvas 390 147 916 513 10;
 #X obj 651 471 dac~, f 11;
 #X msg 839 337 0 44100;
 #X msg 838 296 bang;
@@ -15,9 +15,9 @@
 #X msg 651 315 set \$1;
 #X obj 713 397 tabplay~;
 #X obj 651 261 r \$0-to;
-#X obj 101 291 bng 15 250 50 0 empty empty 1)open_file 17 7 0 10 -262144
--1 -1;
-#X obj 101 308 openpanel;
+#X obj 75 291 bng 15 250 50 0 empty empty 1)open_mp3_file 17 7 0 10
+#fcfcfc #000000 #000000;
+#X obj 75 308 openpanel;
 #N canvas 0 50 450 250 (subpatch) 0;
 #X array Ch_l 1 float 2;
 #X coords 0 1 1 -1 700 100 1 0 0;
@@ -28,23 +28,23 @@
 #X restore 83 123 graph;
 #X msg 488 307 redraw;
 #X msg 379 307 decode;
-#X obj 226 291 bng 15 250 50 0 empty empty 2)array 17 7 0 10 -262144
--1 -1;
-#X obj 379 290 bng 15 250 50 0 empty empty 3)decode 17 7 0 10 -262144
--1 -1;
-#X obj 488 290 bng 15 250 50 0 empty empty 4)redraw 17 7 0 10 -262144
--1 -1;
-#X obj 101 344 s \$0-to;
+#X obj 226 291 bng 15 250 50 0 empty empty 2)array 17 7 0 10 #fcfcfc
+#000000 #000000;
+#X obj 379 290 bng 15 250 50 0 empty empty 3)decode 17 7 0 10 #fcfcfc
+#000000 #000000;
+#X obj 488 290 bng 15 250 50 0 empty empty 4)redraw 17 7 0 10 #fcfcfc
+#000000 #000000;
+#X obj 75 344 s \$0-to;
 #X obj 226 326 s \$0-to;
 #X obj 379 325 s \$0-to;
 #X obj 488 325 s \$0-to;
 #X obj 480 404 r \$0-to;
-#X msg 101 326 openfile \$1;
+#X msg 75 326 openfile \$1;
 #X obj 480 444 print -n;
 #X obj 480 424 n_mpg123;
 #X msg 226 308 array Ch_l Ch_r;
-#X obj 226 391 bng 15 250 50 0 empty empty 2)array 17 7 0 10 -262144
--1 -1;
+#X obj 226 391 bng 15 250 50 0 empty empty 2)array 17 7 0 10 #fcfcfc
+#000000 #000000;
 #X obj 226 426 s \$0-to;
 #X obj 83 226 table Ch_l2;
 #X obj 83 244 table Ch_r2;
